@@ -1,0 +1,37 @@
+# --- Virtual Environment ---
+# Ignore the virtual environment folder
+.venv/
+
+# --- Python Cache & Compiled Files ---
+# Ignore the Python cache folder
+__pycache__/
+# Ignore compiled Python files
+*.pyc
+*.pyo
+*.pyd
+
+# --- Distribution / Packaging ---
+# Ignore build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+
+# --- Editor & OS Specific ---
+# Ignore common IDE/editor folders
+.vscode/
+.idea/
+# Ignore macOS specific files
+.DS_Store
+# Ignore Windows specific files
+Thumbs.db
+
+# --- Temporary Files & Logs ---
+# Ignore log files
+*.log
+# Ignore temporary files created by some libraries
+*.tmp
+
+# --- Data (Optional but Recommended) ---
+# If you have a folder for large datasets, ignore it
+data/
