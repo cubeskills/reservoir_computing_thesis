@@ -111,6 +111,7 @@ def main():
                             pbar.update(1)
 
     df = pd.DataFrame(results)
+    os.makedirs("../../data", exist_ok=True)
     df.to_csv("../../data/ALL_MEASURES_NMSE_CORR_DATA.csv", index=False)
 
 

@@ -122,6 +122,7 @@ def main():
                         jobs.append(delayed(task_worker)(trial, X_parity, scale, sr, task, X_full, y_full, dim))
 
     results = Parallel(n_jobs=n_jobs)(tqdm(jobs, desc="Parallel Sweep"))
+    os.makedirs("../../data", exist_ok=True)
     pd.DataFrame(results).to_csv("../../data/RASTER_DATA_GEN.csv", index=False)
 
 if __name__ == "__main__":

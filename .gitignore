@@ -34,4 +34,7 @@ Thumbs.db
 
 # --- Data (Optional but Recommended) ---
 # If you have a folder for large datasets, ignore it
-data/
+data/*.csv
+# But allow README and small example files
+!data/README.md
+!data/example_*.csv

@@ -77,6 +77,7 @@ def main():
 
 
         df = pd.DataFrame(results)
+        os.makedirs("../../data", exist_ok=True)
         df.to_csv("../../data/ALL_TASKS_NMSE_OU_THESIS.csv", index=False)
 
 
