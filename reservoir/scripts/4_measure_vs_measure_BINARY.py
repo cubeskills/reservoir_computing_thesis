@@ -82,7 +82,7 @@ def main():
                     pbar.update(1)
     
     df = pd.DataFrame(results)
-    df.to_csv("../THESIS_CSV/ALL_MEASURES_CORR_BINARY.csv", index=False)
+    df.to_csv("../../data/ALL_MEASURES_CORR_BINARY.csv", index=False)
 
 if __name__ == "__main__":
     main()

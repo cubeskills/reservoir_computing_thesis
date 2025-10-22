@@ -84,8 +84,8 @@ def main():
                             pbar.update(1)
         
     df = pd.DataFrame(results)
-    df.to_csv("../THESIS_CSV/ALL_MEASURES_OU.csv", index=False)
-    print("Results saved to ../THESIS_CSV/ALL_MEASURES_OU.csv")
+    df.to_csv("../../data/ALL_MEASURES_OU.csv", index=False)
+    print("Results saved to ../../data/ALL_MEASURES_OU.csv")
 
 
 if __name__ == "__main__":

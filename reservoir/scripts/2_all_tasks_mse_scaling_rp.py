@@ -74,7 +74,7 @@ def main():
                             pbar.update(1)
     
     df = pd.DataFrame(results)
-    df.to_csv("../THESIS_CSV/ALL_TASKS_NMSE_RP_THESIS_SCALING.csv", index=False)
+    df.to_csv("../../data/ALL_TASKS_NMSE_RP_THESIS_SCALING.csv", index=False)
 
 if __name__ == "__main__":
     main()
