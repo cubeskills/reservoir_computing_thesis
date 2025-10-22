@@ -54,27 +54,27 @@ Our framework leverages measures from **information theory** and **state-space a
 
 ## Key Findings & Contributions
 
-### ✅ Nonlinearity is Essential
+### Nonlinearity is Essential
 - The relationship between internal measures and task performance is **highly nonlinear**
 - Nonlinear models (SVMs) significantly outperform linear approaches
 
-### ✅ Accurate Guidance
+### Accurate Guidance
 - High classification accuracy for hyperparameter direction prediction
 - Successful optimization across diverse task types
 
-### ✅ Transferable Intelligence
+### Transferable Intelligence
 - Controllers trained on simple tasks (e.g., memory tasks) successfully optimize for complex, unseen tasks (e.g., NARMA10)
 - **No re-optimization needed** for new problems
 
-### ✅ Practical Viability
+### Practical Viability
 - Real-time steering from poor to optimal performance regimes
 - Computationally efficient - no expensive grid searches required
 
-### ✅ Hardware-Ready
+### Hardware-Ready
 - Only requires **observable data** and **external controls**
 - Interesting applciation for physical reservoirs where internal weights are inaccessible are possible
 
-## 📊 Project Structure
+## Project Structure
 
 ```
 reservoir_framework/
@@ -98,7 +98,7 @@ reservoir_framework/
 └── README.md                     # This file
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -173,14 +173,11 @@ The `scripts/` directory contains various experimental studies:
 ## Citation
 
 If you use this framework in your research, please cite:
-
-```bibtex
-@mastersthesis{dinkler2025unsupervised,
+@bachelorthesis{dinkler2025controller,
   title={Intrinsic Reservoir Metrics for evaluating Echo-State Networks and Computational Performance},
   author={Paul Dinkler},
   year={2025},
-  school={[University of Göttingen]},
+  school={University of Göttingen},
   type={Bachelor's Thesis}
 }
-```
 
