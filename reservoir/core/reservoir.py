@@ -1,5 +1,5 @@
 import numpy as np
-from utils.utils import rescale_matrix
+from reservoir.utils.utils import rescale_matrix
 # reservoir class
 
 class Reservoir:

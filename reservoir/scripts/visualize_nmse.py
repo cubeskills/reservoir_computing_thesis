@@ -43,7 +43,7 @@ def plot_nmse_heatmap(df, task_name, process_count, output_dir="../../figures"):
     filename = f"{output_dir}/nmse_landscape_{task_name}_pc{process_count}.png"
     plt.savefig(filename, dpi=300)
     print(f"Plot saved to '{filename}'")
-    plt.show()
+    plt.close()
 
 def main():
     csv_file_path = "../../data/RASTER_DATA_GEN.csv"

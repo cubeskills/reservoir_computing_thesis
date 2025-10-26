@@ -7,10 +7,10 @@ from tqdm import tqdm
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, project_root)
 
-from utils.simulation_tools import build_reservoir, prep_task, compute_random_processes
-from utils.metrics import mse,nmse
-from utils.measures import Measures
-from utils.sequence_generator import parity_task,count_ones_in_window_task
+from reservoir.utils.simulation_tools import build_reservoir, prep_task, compute_random_processes
+from reservoir.utils.metrics import mse,nmse
+from reservoir.utils.measures import Measures
+from reservoir.utils.sequence_generator import parity_task,count_ones_in_window_task
 
 scales = np.logspace(-3, 1, 20)
 spectral_radii = [0.6, 1.0, 1.4]

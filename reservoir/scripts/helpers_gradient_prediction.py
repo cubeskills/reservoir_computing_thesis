@@ -91,7 +91,8 @@ def get_and_plot_feature_importance(model, X, y, feature_names, model_name=""):
     ax.set_xlabel('Importance (Mean Decrease in Score)')
     ax.set_ylabel('Feature')
     plt.tight_layout()
-    plt.show()
+    plt.savefig(f"../../figures/feature_importance_{model_name.lower().replace(' ', '_')}.pdf", dpi=300, bbox_inches='tight')
+    plt.close()
 
 
 def grid_search_and_evaluate(X, y):
@@ -138,7 +139,7 @@ def plot_confusion_matrix(y_true, y_pred, class_labels, title="Confusion Matrix"
         filename = f"{experiment}_experiment_svm_confusion_matrix_{parameter}_local.png"
         plt.savefig(os.path.join(storing, filename))
         print(f"Saved confusion matrix plot to {os.path.join(storing, filename)}")
-    plt.show()
+    plt.close()
     plt.close()
 
 
@@ -241,7 +242,7 @@ def plot_errors_on_hp_grid(df, y_pred, task, storing=None, parameter='sr', exper
         plt.savefig(out_path)
         print(f"Saved accuracy grid plot to {out_path}")
 
-    plt.show()
+    plt.close()
     plt.close()
 
 
@@ -301,13 +302,14 @@ def plot_heatmap_landscape(pivoted_df, task_name, p_count, storing):
     _format_colorbar(cbar, 'Mean NMSE (log scale)')
 
     plt.tight_layout()
-    plt.show()
-
+    
     if storing is not None:
         os.makedirs(storing, exist_ok=True)
         filename = f"nmse_landscape_{task_name}_process_count_{p_count}.png"
-        plt.savefig(os.path.join(storing, filename))
+        plt.savefig(os.path.join(storing, filename), dpi=300, bbox_inches='tight')
         print(f"Saved heatmap to {os.path.join(storing, filename)}")
+    
+    plt.close()
 
 
 def process_data(df, target_col=None):
@@ -357,4 +359,6 @@ def plot_feature_importance(feature_importances, feature_names, title=None):
     _format_colorbar(cbar, "Value")
 
     plt.tight_layout()
-    plt.show()
+    filename = title.lower().replace(' ', '_') if title else "feature_importance"
+    plt.savefig(f"../../figures/{filename}.pdf", dpi=300, bbox_inches='tight')
+    plt.close()

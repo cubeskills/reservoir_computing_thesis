@@ -13,8 +13,13 @@ from sklearn.metrics import confusion_matrix, classification_report
 from sklearn.pipeline import Pipeline
 from sklearn.inspection import permutation_importance
 import shap
-from helpers_gradient_prediction import (
 
+# Add current directory to path for helpers import
+import sys
+import os
+sys.path.insert(0, os.path.dirname(__file__))
+
+from helpers_gradient_prediction import (
     load_data,
     train_and_evaluate,
     grid_search_and_evaluate,
@@ -76,10 +81,11 @@ def analyze_feature_importance_with_shap(model_pipeline, X_train, feature_names,
     )
     plt.title(f"SHAP Feature Importance for {model_title}")
     plt.tight_layout()
-    plt.show()
+    plt.savefig(f"../../figures/7_shap_feature_importance_{model_title.lower().replace(' ', '_')}.pdf", dpi=300, bbox_inches='tight')
+    plt.close()
 
 def main():
-    file = "../../data/RASTER_DATA_GEN.csv"
+    file = "../../data/RASTER_DATA_GEN_GLOBAL.csv"
     output_dir = "../../figures"
 
     df_full = load_data(file)

@@ -13,16 +13,16 @@ from tqdm import tqdm
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, project_root)
 
-from utils.simulation_tools import build_reservoir, compute_random_processes, prep_task
-from utils.metrics import nmse
-from utils.measures import Measures
-from utils.sequence_generator import parity_task, count_ones_in_window_task
+from reservoir.utils.simulation_tools import build_reservoir, compute_random_processes, prep_task
+from reservoir.utils.metrics import nmse
+from reservoir.utils.measures import Measures
+from reservoir.utils.sequence_generator import parity_task, count_ones_in_window_task
 
 SR_INITS = [0.2, 1.8]
 SCALE_INITS = [1e-3, 1e1]
 EPOCHS = 25
 SEED = 42
-CSV_SWEEP_FILE = "../../data/RASTER_DATA_GEN.csv"
+CSV_SWEEP_FILE = "../../data/RASTER_DATA_GEN_GLOBAL.csv"
 
 THEME = {
     "figure.figsize": (14, 10),
@@ -208,7 +208,7 @@ def plot_error_landscape_with_trajectories(csv_file, task_name, process_count, t
 
     plt.tight_layout()
     plt.savefig("../../figures/8_nmse_convergence_non_memory_heatmap.pdf")
-    plt.show()
+    plt.close()
     plt.close()
 
 
@@ -339,7 +339,7 @@ def main():
     plt.ylim(bottom=0)
     plt.tight_layout()
     plt.savefig("../../figures/8_nmse_convergence_non_memory.pdf")
-    plt.show()
+    plt.close()
 
     plot_error_landscape_with_trajectories(
         csv_file=CSV_SWEEP_FILE,

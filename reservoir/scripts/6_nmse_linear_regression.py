@@ -128,7 +128,7 @@ def generate_regression_plots(df_full: pd.DataFrame, available_measures: list, g
     plt.ylabel("Tasks")
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, f"6_linreg_r2_heatmap_{s['filename_part']}.pdf"), dpi=300, bbox_inches='tight')
-    plt.show()
+    plt.close()
     plt.close()
 
 def generate_global_regression_plots(df_full: pd.DataFrame, available_measures: list, output_dir: str):
@@ -185,7 +185,7 @@ def generate_global_regression_plots(df_full: pd.DataFrame, available_measures: 
     plt.ylabel("Tasks")
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, "6_linreg_global_heatmap.pdf"), dpi=300, bbox_inches='tight')
-    plt.show()
+    plt.close()
     plt.close()
 
 def plot_summary_figures(r2_scores_df: pd.DataFrame, output_dir: str):
@@ -200,7 +200,7 @@ def plot_summary_figures(r2_scores_df: pd.DataFrame, output_dir: str):
     plt.grid(True, linestyle='--', alpha=0.6)
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, "6_r2_score_distribution_linreg.pdf"), dpi=300, bbox_inches='tight')
-    plt.show()
+    plt.close()
     plt.close()
 
 def summarize_r2_by_condition(r2_scores_df: pd.DataFrame):

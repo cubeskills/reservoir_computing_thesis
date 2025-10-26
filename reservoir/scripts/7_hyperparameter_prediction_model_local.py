@@ -9,6 +9,12 @@ from sklearn.model_selection import cross_val_predict, cross_val_score
 from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import confusion_matrix, classification_report, f1_score
+
+# Add current directory to path for helpers import
+import sys
+import os
+sys.path.insert(0, os.path.dirname(__file__))
+
 from helpers_gradient_prediction import (
     train_and_evaluate,
     plot_confusion_matrix,
@@ -40,10 +46,10 @@ def plot_f1_matrix(y_true, y_pred, class_labels, title="F1 Score Matrix", storin
     if storing:
         os.makedirs(storing, exist_ok=True)
         filename = f"{experiment}_experiment_svm_f1_matrix_{parameter}_local.png"
-        #plt.savefig(os.path.join(storing, filename), bbox_inches='tight')
+        plt.savefig(os.path.join(storing, filename), bbox_inches='tight', dpi=300)
         print(f"Saved F1 matrix plot to {os.path.join(storing, filename)}")
 
-    plt.show()
+    plt.close()
     plt.close()
 
 def analyze_by_task(df_processed, measures, storing, experiment):

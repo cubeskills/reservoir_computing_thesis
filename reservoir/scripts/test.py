@@ -4,9 +4,9 @@ import sys
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, project_root)
 
-from utils.simulation_tools import build_reservoir
-from utils.metrics import nmse
-from utils.sequence_generator import parity_task
+from reservoir.utils.simulation_tools import build_reservoir
+from reservoir.utils.metrics import nmse
+from reservoir.utils.sequence_generator import parity_task
 
 N_STEPS = 5000
 SPECTRAL_RADIUS = 0.2

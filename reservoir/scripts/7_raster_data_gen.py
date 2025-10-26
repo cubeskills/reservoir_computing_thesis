@@ -8,10 +8,10 @@ from joblib import Parallel, delayed
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, project_root)
 
-from utils.simulation_tools import compute_random_processes, build_reservoir, prep_task
-from utils.measures import Measures
-from utils.metrics import nmse
-from utils.sequence_generator import parity_task, count_ones_in_window_task
+from reservoir.utils.simulation_tools import compute_random_processes, build_reservoir, prep_task
+from reservoir.utils.measures import Measures
+from reservoir.utils.metrics import nmse
+from reservoir.utils.sequence_generator import parity_task, count_ones_in_window_task
 
 seed = 42
 N_STEPS = 5000

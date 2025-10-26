@@ -103,8 +103,8 @@ def analyze_correlations(df: pd.DataFrame, available_measures: list, input_type:
     _add_side_colorbar(ax, hm.collections[0], label="Correlation")
     _finalize_ax(ax, title=f"Global Pearson ({input_type.upper()})")
     plt.tight_layout()
-    #plt.savefig(os.path.join(storing, f"5_nmse_correlation_{input_type}.pdf"), bbox_inches="tight")
-    plt.show()
+    plt.savefig(os.path.join(storing, f"5_nmse_correlation_{input_type}.pdf"), bbox_inches="tight", dpi=300)
+    plt.close()
 
 def analyze_conditional_correlations_sr(df: pd.DataFrame, available_measures: list, input_type: str, task_name: str, storing: str):
     """Rows: measures; Cols: SR regimes; cells: corr(measure, NMSE)."""
@@ -127,8 +127,8 @@ def analyze_conditional_correlations_sr(df: pd.DataFrame, available_measures: li
     ax.set_ylabel("Measures", fontsize=8)
     ax.set_xlabel("Spectral Radius Regime", fontsize=8)
     plt.tight_layout()
-    #plt.savefig(os.path.join(storing, f"5_nmse_correlation_by_sr_{task_name}.pdf"), bbox_inches="tight")
-    plt.show()
+    plt.savefig(os.path.join(storing, f"5_nmse_correlation_by_sr_{task_name}.pdf"), bbox_inches="tight", dpi=300)
+    plt.close()
 
 def analyze_correlations_by_input_count(df: pd.DataFrame, available_measures: list, input_type: str, task_name: str, storing: str):
     """Rows: measures; Cols: input counts; cells: corr(measure, NMSE)."""
@@ -151,8 +151,8 @@ def analyze_correlations_by_input_count(df: pd.DataFrame, available_measures: li
     ax.set_ylabel("Measures", fontsize=8)
     ax.set_xlabel("Number of Input Processes", fontsize=8)
     plt.tight_layout()
-    #plt.savefig(os.path.join(storing, f"5_nmse_correlation_by_input_count_{task_name}.pdf"), bbox_inches="tight")
-    plt.show()
+    plt.savefig(os.path.join(storing, f"5_nmse_correlation_by_input_count_{task_name}.pdf"), bbox_inches="tight", dpi=300)
+    plt.close()
 
 def analyze_correlations_by_scale(df: pd.DataFrame, available_measures: list, input_type: str, task_name: str, storing: str):
     """Rows: measures; Cols: scales; cells: corr(measure, NMSE)."""
@@ -175,8 +175,8 @@ def analyze_correlations_by_scale(df: pd.DataFrame, available_measures: list, in
     ax.set_ylabel("Measures", fontsize=8)
     ax.set_xlabel("Input Scale", fontsize=8)
     plt.tight_layout()
-    #plt.savefig(os.path.join(storing, f"5_nmse_correlation_by_scale_{task_name}.pdf"), bbox_inches="tight")
-    plt.show()
+    plt.savefig(os.path.join(storing, f"5_nmse_correlation_by_scale_{task_name}.pdf"), bbox_inches="tight", dpi=300)
+    plt.close()
 
 if __name__ == "__main__":
     home_dir = "../../data"

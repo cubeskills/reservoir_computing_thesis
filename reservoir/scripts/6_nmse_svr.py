@@ -173,7 +173,7 @@ def generate_regression_plots(df_full: pd.DataFrame, available_measures: list,
     # png save
     plt.savefig(out2, dpi=300, bbox_inches='tight')
     plt.savefig(out_path, dpi=300, bbox_inches='tight')
-    plt.show()
+    plt.close()
     plt.close()
     print(f"Saved heatmap: {os.path.basename(out_path)}")
 
@@ -249,7 +249,7 @@ def generate_global_regression_plots(df_full: pd.DataFrame, available_measures: 
     out2 = os.path.join(output_dir, "6_svr_global_heatmap.png")
     plt.savefig(out_path, dpi=300, bbox_inches='tight')
     plt.savefig(out2, dpi=300, bbox_inches='tight')
-    plt.show()
+    plt.close()
     plt.close()
     print(f"Saved global heatmap: {os.path.basename(out_path)}")
 
@@ -272,7 +272,7 @@ def plot_summary_figures(r2_scores_df: pd.DataFrame, output_dir: str):
     
     plt.savefig(out_path, dpi=300, bbox_inches='tight')
 
-    plt.show()
+    plt.close()
     plt.close()
     print(f"Saved R² distribution plot: {os.path.basename(out_path)}")
 

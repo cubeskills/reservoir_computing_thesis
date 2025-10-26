@@ -1,7 +1,7 @@
 import numpy as np
-from core.reservoir import Reservoir
-from core.readout import Readout
-from core.input_mapping import InputMapping
+from reservoir.core.reservoir import Reservoir
+from reservoir.core.readout import Readout
+from reservoir.core.input_mapping import InputMapping
 # import tuple
 #from typing import Tuple
 import time

@@ -14,10 +14,10 @@ from sklearn.inspection import permutation_importance
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, project_root)
 
-from utils.simulation_tools import build_reservoir, compute_random_processes, prep_task
-from utils.metrics import nmse
-from utils.measures import Measures
-from utils.sequence_generator import parity_task, count_ones_in_window_task
+from reservoir.utils.simulation_tools import build_reservoir, compute_random_processes, prep_task
+from reservoir.utils.metrics import nmse
+from reservoir.utils.measures import Measures
+from reservoir.utils.sequence_generator import parity_task, count_ones_in_window_task
 
 SR_INITS = [0.2, 1.8]
 SCALE_INITS = [1e-3, 1e1]
@@ -127,10 +127,9 @@ def plot_svm_permutation_importance(
     pdf_path = os.path.join(outdir, f"{basename}.pdf")
     plt.savefig(png_path)
     plt.savefig(pdf_path)
-    plt.show()
+    plt.close()
 
     return df_sr, df_scale
-
 
 def create_targets_percentile_only(df, percentile=0.03):
     df_processed = df.copy()
@@ -167,7 +166,6 @@ def create_targets_percentile_only(df, percentile=0.03):
     df_processed['sr_direction_global'] = sr_directions
     df_processed['scale_direction_global'] = scale_directions
     return df_processed
-
 
 def evaluate_performance(task_name, process_data, sr, scale, seed):
     if task_name == "parity":
@@ -270,10 +268,8 @@ def plot_error_landscape_with_trajectories(csv_file, task_name, process_count, t
 
     plt.tight_layout()
     plt.savefig("../../figures/8_nmse_convergence_delay_heatmap_memory_tasks.pdf")
-    plt.show()
     plt.close()
-
-
+    plt.close()
 
 def plot_task_nmse_heatmaps(csv_file: str, outdir: str = "../../figures"):
     os.makedirs(outdir, exist_ok=True)
@@ -345,7 +341,7 @@ def plot_task_nmse_heatmaps(csv_file: str, outdir: str = "../../figures"):
         plt.tight_layout()
         out_path = os.path.join(outdir, f"NMSE_grid_{task}.pdf")
         plt.savefig(out_path)
-        plt.show()
+        plt.close()
         plt.close()
 
 
@@ -440,7 +436,7 @@ def main():
                 nmse_histories["count_ones_in_window"].append(
                     evaluate_performance("count_ones_in_window", process, current_sr, current_scale, SEED)
                 )   
-        
+
 
                 meas_reservoir = build_reservoir(
                     input_dim=3, reservoir_size=100,
@@ -449,7 +445,7 @@ def main():
                 )
                 states = meas_reservoir.collect_states(process)
                 meas = Measures(meas_reservoir.current_history, states)
-
+                
                 live_measures_dict = {
                     "average_state_entropy": meas.average_state_entropy(),
                     "variance_activation_derivatives": meas.variance_of_activation_derivatives(),
@@ -505,7 +501,7 @@ def main():
     plt.ylim(bottom=0)
     plt.tight_layout()
     plt.savefig("../../figures/8_nmse_convergence_memory_tasks.pdf")
-    plt.show()
+    plt.close()
 
     plot_error_landscape_with_trajectories(
         csv_file=CSV_SWEEP_FILE,

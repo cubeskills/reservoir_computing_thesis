@@ -4,11 +4,11 @@ import os
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_root)
 
-from core.reservoir import Reservoir
-from core.readout import RidgeReadout 
-from core.input_mapping import InputMapping
-from training.trainer import ESNTrainer
-from utils.sequence_generator import generate_ornstein_uhlenbeck, random_process, generate_narma, generate_mackey_glass
+from reservoir.core.reservoir import Reservoir
+from reservoir.core.readout import RidgeReadout 
+from reservoir.core.input_mapping import InputMapping
+from reservoir.training.trainer import ESNTrainer
+from reservoir.utils.sequence_generator import generate_ornstein_uhlenbeck, random_process, generate_narma, generate_mackey_glass
 
 
 def compute_ou_processes(n_samples: int=5, n_total_steps: int = 5000, seed: int = 42, theta=0.7) -> np.ndarray:

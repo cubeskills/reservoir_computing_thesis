@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import os
+import matplotlib
+matplotlib.use('Agg')  # Non-interactive backend
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -36,7 +38,8 @@ def analyze_correlations(df: pd.DataFrame, available_measures: list, input_type:
     plt.xticks(rotation=45, ha='right')
     plt.yticks(rotation=0)
     plt.tight_layout()
-    plt.show()
+    plt.savefig(f"../../figures/5_spearman_global_correlation_{input_type}.pdf", dpi=300, bbox_inches='tight')
+    plt.close()
 
 def analyze_conditional_correlations_sr(df: pd.DataFrame, available_measures: list, input_type: str, task_name: str):
     valid_cols = available_measures + [TARGET_COL]
@@ -53,7 +56,8 @@ def analyze_conditional_correlations_sr(df: pd.DataFrame, available_measures: li
     plt.ylabel("Reservoir Measures", fontsize=12)
     plt.xlabel("Spectral Radius Regime", fontsize=12)
     plt.tight_layout()
-    plt.show()
+    plt.savefig(f"../../figures/5_spearman_correlation_by_sr_{input_type}_{task_name}.pdf", dpi=300, bbox_inches='tight')
+    plt.close()
 
 def analyze_correlations_by_input_count(df: pd.DataFrame, available_measures: list, input_type: str, task_name: str):
     valid_cols = available_measures + [TARGET_COL]
@@ -72,7 +76,8 @@ def analyze_correlations_by_input_count(df: pd.DataFrame, available_measures: li
     plt.ylabel("Reservoir Measures", fontsize=12)
     plt.xlabel("Number of Input Processes", fontsize=12)
     plt.tight_layout()
-    plt.show()
+    plt.savefig(f"../../figures/5_spearman_correlation_by_input_count_{input_type}_{task_name}.pdf", dpi=300, bbox_inches='tight')
+    plt.close()
 
 def analyze_correlations_by_scale(df: pd.DataFrame, available_measures: list, input_type: str, task_name: str):
     valid_cols = available_measures + [TARGET_COL]
@@ -91,7 +96,8 @@ def analyze_correlations_by_scale(df: pd.DataFrame, available_measures: list, in
     plt.ylabel("Reservoir Measures", fontsize=12)
     plt.xlabel("Input Scale", fontsize=12)
     plt.tight_layout()
-    plt.show()
+    plt.savefig(f"../../figures/5_spearman_correlation_by_scale_{input_type}_{task_name}.pdf", dpi=300, bbox_inches='tight')
+    plt.close()
 
 if __name__ == "__main__":
     home_dir = "../../data"
