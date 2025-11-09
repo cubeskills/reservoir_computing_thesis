@@ -110,7 +110,7 @@ def run_optimization_phase(sr_init, scale_init, epochs, svm_sr, svm_scale, scale
         scale_history.append(current_scale)
         
         process = compute_random_processes(
-            3, n_total_steps=1000,
+            3, n_total_steps=5000,
             lower=-np.sqrt(3/4), upper=np.sqrt(3/4), seed=process_seed + epoch
         ).T
 

@@ -31,7 +31,7 @@ def load_data(file):
     return pd.read_csv(file)
 
 
-def create_targets_percentile_only(df, percentile=0.03):
+def create_targets_percentile_only(df, percentile=0.05):
     df_processed = df.copy()
     sr_directions = pd.Series(index=df.index, dtype=object)
     scale_directions = pd.Series(index=df.index, dtype=object)
@@ -160,7 +160,7 @@ def main():
 
     df_processed = df[df['task'].isin(['delay'])]
     df_processed = df_processed[df_processed['process_count'].isin([1, 5, 7])]
-    df_processed = create_targets_percentile_only(df_processed, percentile=0.03)
+    df_processed = create_targets_percentile_only(df_processed, percentile=0.05)
     print(f"Data loaded and processed. Number of samples: {len(df_processed)}")
 
     MEASURES = [
@@ -204,7 +204,7 @@ def main():
                 scale_history.append(current_scale)
 
                 process = compute_random_processes(
-                    3, n_total_steps=1000,
+                    3, n_total_steps=5000,
                     lower=-np.sqrt(3/4), upper=np.sqrt(3/4), seed=epoch
                 ).T
 

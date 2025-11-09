@@ -143,7 +143,7 @@ def plot_confusion_matrix(y_true, y_pred, class_labels, title="Confusion Matrix"
     plt.close()
 
 
-def create_targets_percentile_only(df, percentile=0.03):
+def create_targets_percentile_only(df, percentile=0.05):
     df_processed = df.copy()
     sr_directions = pd.Series(index=df.index, dtype=object)
     scale_directions = pd.Series(index=df.index, dtype=object)

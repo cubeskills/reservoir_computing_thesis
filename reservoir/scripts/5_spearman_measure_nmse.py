@@ -28,17 +28,26 @@ def load_and_prepare_data(file_path: str, input_type: str) -> pd.DataFrame:
     df['input_type'] = input_type
     return df
 
-def analyze_correlations(df: pd.DataFrame, available_measures: list, input_type: str):
+def analyze_correlations(df: pd.DataFrame, available_measures: list, input_type: str, task_name: str):
+    """Correlate each measure with NMSE (whole dataset, no splitting)."""
     valid_cols = available_measures + [TARGET_COL]
     df_filtered = df[valid_cols].dropna()
     corr_matrix = df_filtered.corr(method='spearman')
-    plt.figure(figsize=(12, 10))
-    sns.heatmap(corr_matrix, annot=True, cmap='Blues', fmt=".2f", linewidths=.5, vmin=-1, vmax=1)
-    plt.title(f"Global Spearman Correlation ({input_type.upper()} Input)", fontsize=16)
-    plt.xticks(rotation=45, ha='right')
-    plt.yticks(rotation=0)
+    
+    # Extract only the NMSE column (measures x NMSE correlations)
+    nmse_corr = corr_matrix[TARGET_COL].drop(TARGET_COL, errors='ignore')
+    
+    # Convert to DataFrame for heatmap (single column)
+    results_df = nmse_corr.to_frame(name="NMSE")
+    
+    plt.figure(figsize=(10, 8))
+    cmap = sns.diverging_palette(250, 30, l=65, center="dark", as_cmap=True)
+    sns.heatmap(results_df, annot=True, cmap=cmap, fmt=".2f", linewidths=.5, vmin=-1, vmax=1)
+    plt.title(f"Global Spearman Correlation ({task_name.title()})", fontsize=16)
+    plt.ylabel("Reservoir Measures", fontsize=12)
+    plt.xlabel("", fontsize=12)
     plt.tight_layout()
-    plt.savefig(f"../../figures/5_spearman_global_correlation_{input_type}.pdf", dpi=300, bbox_inches='tight')
+    plt.savefig(f"../../figures/5_spearman_global_correlation_{task_name}.pdf", dpi=300, bbox_inches='tight')
     plt.close()
 
 def analyze_conditional_correlations_sr(df: pd.DataFrame, available_measures: list, input_type: str, task_name: str):
@@ -112,6 +121,16 @@ if __name__ == "__main__":
         available_measures = [m for m in ALL_POSSIBLE_MEASURES if m in df_full.columns]
         for task in df_full['task'].unique():
             task_df = df_full[df_full['task'] == task].copy()
+            
+            # 1) Full matrix (whole dataset for this task)
+            analyze_correlations(
+                df=task_df,
+                available_measures=available_measures,
+                input_type=input_type,
+                task_name=task
+            )
+            
+            # 2) Conditional analyses
             analyze_conditional_correlations_sr(
                 df=task_df,
                 available_measures=available_measures,

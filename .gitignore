@@ -40,12 +40,14 @@ data/*.csv
 
 # --- Figures & Plots ---
 # Ignore generated plots and figures
-figures/*.pdf
-figures/*.png
-figures/*.jpg
-figures/*.svg
 !figures/.gitkeep
 !figures/README.md
+
+# --- Shell Scripts & Runner Files ---
+# Ignore all shell scripts
+*.sh
+# Ignore experiment runner scripts
+run_all_experiments.py
 
 # --- Research Specific ---
 # Ignore model checkpoints and serialized objects

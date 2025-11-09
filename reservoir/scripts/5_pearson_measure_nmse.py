@@ -88,22 +88,31 @@ def aggregate_by_setting(df: pd.DataFrame, value_cols: list) -> pd.DataFrame:
     )
     return agg
 
-def analyze_correlations(df: pd.DataFrame, available_measures: list, input_type: str, storing: str):
-    """Full (measures + NMSE) Pearson matrix in CAPS; compact sizing with side colorbar."""
+def analyze_correlations(df: pd.DataFrame, available_measures: list, input_type: str, task_name: str, storing: str):
+    """Correlate each measure with NMSE (whole dataset, no splitting)."""
     valid_cols = available_measures + [TARGET_COL]
-    df_used = aggregate_by_setting(df[valid_cols + ["spectral_radius","scale","process_count"]], valid_cols)
+    # df_used = aggregate_by_setting(df[valid_cols + ["spectral_radius","scale","process_count"]], valid_cols)
+    df_used = df[valid_cols].dropna()
 
     ordered_measures = [m for m in MEASURE_ORDER if m in available_measures]
     ordered_cols = ordered_measures + [TARGET_COL]
     corr_matrix = df_used[ordered_cols].corr(method='pearson')
-    corr_caps = _rename_to_caps(corr_matrix)
+    
+    # Extract only the NMSE column (measures x NMSE correlations)
+    nmse_corr = corr_matrix[TARGET_COL].drop(TARGET_COL, errors='ignore')
+    
+    # Convert to DataFrame for heatmap (single column)
+    results_df = nmse_corr.to_frame(name="NMSE")
+    results_df_caps = _rename_to_caps(results_df)
 
     fig, ax = plt.subplots(1, 1, figsize=FIGSIZE_SINGLE)
-    hm = sns.heatmap(corr_caps, **HEATMAP_KW, cbar=False)
-    _add_side_colorbar(ax, hm.collections[0], label="Correlation")
-    _finalize_ax(ax, title=f"Global Pearson ({input_type.upper()})")
+    hm = sns.heatmap(results_df_caps, **HEATMAP_KW, cbar=False)
+    _add_side_colorbar(ax, hm.collections[0], label="Pearson Correlation")
+    _finalize_ax(ax, title=f"Global Pearson ({task_name.title()})")
+    ax.set_ylabel("Measures", fontsize=8)
+    ax.set_xlabel("", fontsize=8)
     plt.tight_layout()
-    plt.savefig(os.path.join(storing, f"5_nmse_correlation_{input_type}.pdf"), bbox_inches="tight", dpi=300)
+    plt.savefig(os.path.join(storing, f"5_nmse_correlation_{task_name}.pdf"), bbox_inches="tight", dpi=300)
     plt.close()
 
 def analyze_conditional_correlations_sr(df: pd.DataFrame, available_measures: list, input_type: str, task_name: str, storing: str):
@@ -112,7 +121,8 @@ def analyze_conditional_correlations_sr(df: pd.DataFrame, available_measures: li
     results = {}
     for name, (low, high) in SPECTRAL_RANGES.items():
         range_df = df[(df['spectral_radius'] >= low) & (df['spectral_radius'] < high)]
-        range_df_used = aggregate_by_setting(range_df[valid_cols + ["spectral_radius","scale","process_count"]], valid_cols)
+        # range_df_used = aggregate_by_setting(range_df[valid_cols + ["spectral_radius","scale","process_count"]], valid_cols)
+        range_df_used = range_df[valid_cols].dropna()
         corr_matrix = range_df_used[valid_cols].corr(method='pearson')
         results[name] = corr_matrix.get(TARGET_COL, pd.Series(np.nan)).drop(TARGET_COL, errors='ignore')
 
@@ -136,7 +146,8 @@ def analyze_correlations_by_input_count(df: pd.DataFrame, available_measures: li
     results = {}
     for count in sorted(df['process_count'].unique()):
         sub = df[df['process_count'] == count]
-        sub_used = aggregate_by_setting(sub[valid_cols + ["spectral_radius","scale","process_count"]], valid_cols)
+        # sub_used = aggregate_by_setting(sub[valid_cols + ["spectral_radius","scale","process_count"]], valid_cols)
+        sub_used = sub[valid_cols].dropna()
         corr_matrix = sub_used[valid_cols].corr(method='pearson')
         results[f"Inputs: {count}"] = corr_matrix.get(TARGET_COL, pd.Series(np.nan)).drop(TARGET_COL, errors='ignore')
 
@@ -160,7 +171,8 @@ def analyze_correlations_by_scale(df: pd.DataFrame, available_measures: list, in
     results = {}
     for sc in sorted(df['scale'].unique()):
         sub = df[df['scale'] == sc]
-        sub_used = aggregate_by_setting(sub[valid_cols + ["spectral_radius","scale","process_count"]], valid_cols)
+        # sub_used = aggregate_by_setting(sub[valid_cols + ["spectral_radius","scale","process_count"]], valid_cols)
+        sub_used = sub[valid_cols].dropna()
         corr_matrix = sub_used[valid_cols].corr(method='pearson')
         results[f"Scale: {sc}"] = corr_matrix.get(TARGET_COL, pd.Series(np.nan)).drop(TARGET_COL, errors='ignore')
 
@@ -195,7 +207,7 @@ if __name__ == "__main__":
             task_df = df_full[df_full['task'] == task].copy()
 
             # 1) Full matrix
-            analyze_correlations(task_df, available_measures, input_type, storing)
+            analyze_correlations(task_df, available_measures, input_type, task, storing)
 
             # 2) Conditioned matrices (uniform size, compact)
             analyze_conditional_correlations_sr(

@@ -224,6 +224,27 @@ def generate_global_regression_plots(df_full: pd.DataFrame, available_measures: 
         return
 
     results_df = pd.DataFrame(all_results).set_index("Task")
+    
+    # Save R² scores to CSV
+    csv_path = os.path.join(output_dir, "6_svr_global_r2_scores.csv")
+    results_df.to_csv(csv_path)
+    print(f"Saved R² scores to {csv_path}")
+    
+    # Create bar plot with error bars
+    plt.figure(figsize=(10, 6))
+    x_pos = np.arange(len(results_df))
+    plt.bar(x_pos, results_df['R²'], yerr=results_df['R²_std'], 
+            capsize=5, alpha=0.7, color='steelblue', ecolor='black')
+    plt.xlabel('Task', fontsize=12)
+    plt.ylabel('R² Score', fontsize=12)
+    plt.title('SVR Performance (Test R²) with Standard Deviation', fontsize=14)
+    plt.xticks(x_pos, results_df.index, rotation=45, ha='right')
+    plt.grid(True, axis='y', linestyle='--', alpha=0.6)
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, "6_svr_global_r2_barplot.pdf"), dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    # Create heatmap (existing visualization)
     heatmap_df = results_df[["R²"]]
 
     plt.figure(figsize=(8, max(6, len(heatmap_df) * 0.8)))

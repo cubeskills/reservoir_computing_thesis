@@ -86,7 +86,11 @@ def plot_averaged_trajectories(df, output_dir="../../figures"):
         ax1.set_xlabel('Epoch')
         ax1.set_ylabel('NMSE')
         ax1.set_yscale('log')
-        ax1.legend()
+        
+        # only show legend in first panel, positioned in lower left
+        if row == 0:
+            ax1.legend(loc='lower left')
+        
         ax1.grid(True, alpha=0.3)
         
         # plot averaged hyperparameters
