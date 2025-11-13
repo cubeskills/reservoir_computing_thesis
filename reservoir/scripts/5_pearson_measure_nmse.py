@@ -209,7 +209,7 @@ if __name__ == "__main__":
             # 1) Full matrix
             analyze_correlations(task_df, available_measures, input_type, task, storing)
 
-            # 2) Conditioned matrices (uniform size, compact)
+            # 2) Conditioned matrices
             analyze_conditional_correlations_sr(
                 df=task_df,
                 available_measures=available_measures,
